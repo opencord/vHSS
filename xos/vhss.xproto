@@ -1,0 +1,15 @@
+option name = "vHSS";
+option verbose_name = "VHSSService";
+
+option legacy = "True";
+
+message VHSSService (Service){
+    required string service_message = 1 [help_text = "Service Message to Display", max_length = 254, null = False, db_index = False, blank = False];
+}
+
+
+message VHSSTenant (TenantWithContainer){
+     option name = "VHSS";
+     option verbose_name = "Virtual Home Subscriber Server Tenant";
+     required string tenant_message = 1 [help_text = "Tenant Message to Display", max_length = 254, null = False, db_index = False, blank = False];
+}
