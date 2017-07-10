@@ -1,5 +1,5 @@
 ---
-# exampletenant_playbook
+# vhsstenant_playbook
 
 - hosts: "{{ instance_name }}"
   connection: ssh

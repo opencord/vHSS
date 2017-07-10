@@ -16,7 +16,7 @@ proxy_ssh_user=root
 enable_watchers=True
 accessor_kind=api
 accessor_password=@/opt/xos/services/vhss/credentials/xosadmin@opencord.org
-required_models=VHSSService, VHSSTenant, ServiceDependency, ServiceMonitoringAgentInfo
+#required_models=VHSSService, VHSSTenant, ServiceDependency, ServiceMonitoringAgentInfo
 
 [networking]
 use_vtn=True
