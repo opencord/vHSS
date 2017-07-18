@@ -15,7 +15,7 @@ topology_template:
           # base_url is non-null.
           xproto: ./
           admin: admin.py
-          tosca_custom_types: vhss.yaml
+          tosca_custom_types: tosca/custom_types/vhss.yaml
           tosca_resource: tosca/resources/vhssservice.py, tosca/resources/vhsstenant.py
           private_key: file:///opt/xos/key_import/mcord_rsa
           public_key: file:///opt/xos/key_import/mcord_rsa.pub
