@@ -7,7 +7,7 @@ imports:
 
 topology_template:
   node_templates:
-    vhss:
+    servicecontroller#vhss:
       type: tosca.nodes.ServiceController
       properties:
           base_url: file:///opt/xos_services/vhss/xos/
@@ -15,6 +15,9 @@ topology_template:
           # base_url is non-null.
           xproto: ./
           admin: admin.py
+          admin_template: templates/vhssadmin.html
+          #synchronizer: synchronizer/manifest
+          #synchronizer_run: vhss-synchronizer.py
           tosca_custom_types: tosca/custom_types/vhss.yaml
           tosca_resource: tosca/resources/vhssservice.py, tosca/resources/vhsstenant.py
           private_key: file:///opt/xos/key_import/mcord_rsa

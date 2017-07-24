@@ -1,4 +1,4 @@
-# admin.py - ExampleService Django Admin
+# admin.py - VHSSService Django Admin
 
 from core.admin import ReadOnlyAwareAdmin, SliceInline
 from core.middleware import get_request
@@ -46,7 +46,7 @@ class VHSSServiceAdmin(ReadOnlyAwareAdmin):
     extracontext_registered_admins = True
 
     suit_form_tabs = (
-        ('general', 'Example Service Details', ),
+        ('general', 'vHSS Service Details', ),
         ('slices', 'Slices',),
         )
 
@@ -91,7 +91,7 @@ class VHSSTenantForm(forms.ModelForm):
         return super(VHSSTenantForm, self).save(commit=commit)
 
 
-class ExampleTenantAdmin(ReadOnlyAwareAdmin):
+class VHSSTenantAdmin(ReadOnlyAwareAdmin):
 
     verbose_name = "vHSS Service Tenant"
     verbose_name_plural = "vHSS Service Tenants"
