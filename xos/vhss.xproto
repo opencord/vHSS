@@ -1,5 +1,6 @@
 option name = "vHSS";
 option verbose_name = "Virtual Home Subscriber Server";
+option kind = "vEPC";
 
 message VHSSService (Service){
      option name = "VHSSService";
