@@ -13,9 +13,3 @@ from xos.exceptions import *
 from xos.config import Config
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
-
-MCORD_KIND = "vEPC"
-SERVICE_NAME_VERBOSE = 'Virtual Home Subscriber Server Service'
-SERVICE_NAME_VERBOSE_PLURAL = 'Virtual Home Suscriber Server Services'
-TENANT_NAME_VERBOSE = 'Virtual Home Subscriber Server Tenant'
-TENANT_NAME_VERBOSE_PLURAL = 'Virtual Home Subscriber Server Tenants'
