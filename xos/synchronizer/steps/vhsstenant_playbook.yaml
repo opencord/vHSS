@@ -8,5 +8,3 @@
   gather_facts: no
   vars:
     - tenant_message: "{{ tenant_message }}"
-    - service_message: "{{ service_message }}"
-
