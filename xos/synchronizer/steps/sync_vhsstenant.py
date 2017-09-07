@@ -8,7 +8,6 @@ parentdir = os.path.join(os.path.dirname(__file__), "..")
 sys.path.insert(0, parentdir)
 
 class SyncVHSSTenant(SyncInstanceUsingAnsible):
-
     provides = [VHSSTenant]
 
     observes = VHSSTenant
@@ -26,20 +25,11 @@ class SyncVHSSTenant(SyncInstanceUsingAnsible):
         super(SyncVHSSTenant, self).__init__(*args, **kwargs)
 
     def fetch_pending(self, deleted):
-
         if (not deleted):
             objs = VHSSTenant.get_tenant_objects().filter(
                 Q(enacted__lt=F('updated')) | Q(enacted=None), Q(lazy_blocked=False))
         else:
-
             objs = VHSSTenant.get_deleted_tenant_objects()
 
         return objs
 
-    def get_extra_attributes(self, o):
-        fields = {}
-        fields['tenant_message'] = o.tenant_message
-        return fields
-
-    def delete_record(self, port):
-        pass

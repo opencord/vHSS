@@ -17,7 +17,7 @@ topology_template:
           synchronizer: synchronizer/manifest
           synchronizer_run: vhss-synchronizer.py
           tosca_custom_types: tosca/custom_types/vhss.yaml
-          tosca_resource: tosca/resources/vhssservice.py, tosca/resources/vhsstenant.py
+          tosca_resource: tosca/resources/vhssservice.py, tosca/resources/vhsstenant.py, tosca/resources/vhssvendor.py
           private_key: file:///opt/xos/key_import/mcord_rsa
           public_key: file:///opt/xos/key_import/mcord_rsa.pub
 

@@ -1,5 +1,6 @@
 from core.models.plcorebase import *
 from models_decl import VHSSService_decl
+from models_decl import VHSSVendor_decl
 from models_decl import VHSSTenant_decl
 
 from django.db import models
@@ -25,6 +26,10 @@ class VHSSService(VHSSService_decl):
        t.save()
        return t
 
+class VHSSVendor(VHSSVendor_decl):
+   class Meta:
+       proxy = True
+
 class VHSSTenant(VHSSTenant_decl):
    class Meta:
         proxy = True 
@@ -35,6 +40,17 @@ class VHSSTenant(VHSSTenant_decl):
            self._meta.get_field(
                    "provider_service").default = vhssservice[0].id
        super(VHSSTenant, self).__init__(*args, **kwargs)
+
+   @property
+   def image(self):
+       if not self.vhss_vendor:
+           return super(VHSSTenant, self).image
+       return self.vhss_vendor.image
+   
+   def save_instance(self, instance):
+       if self.vhss_vendor:
+           instance.flavor = self.vhss_vendor.flavor
+       super(VHSSTenant, self).save_instance(instance)
 
    def save(self, *args, **kwargs):
        if not self.creator:

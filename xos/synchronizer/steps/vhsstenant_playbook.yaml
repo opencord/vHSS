@@ -2,9 +2,9 @@
 # vhsstenant_playbook
 
 - hosts: "{{ instance_name }}"
+  gather_facts: False
   connection: ssh
   user: ubuntu
   sudo: yes
-  gather_facts: no
+  tasks:
   vars:
-    - tenant_message: "{{ tenant_message }}"
