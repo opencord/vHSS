@@ -1,44 +1,46 @@
-# Virtual Home Subscriber Server Service
+# Virtual Home Subscriber Server Service (vHSS)
 
 ## Onboarding
 
-To onboard this service in your system, you can add the service to the `mcord.yml` profile manifest:
+To onboard this service in your system, you can add the service to the `mcord.yml` profile manifest (location: $CORD/build/platform-install/profile_manifests/mcord.yml):
 
 ```
 xos_services:
   - name: vhss
     path: orchestration/xos_services/vhss
     keypair: mcord_rsa
-    synchronizer: true
 ```
 
-Once you have added the service, you will need to rebuild and redeploy the XOS containers from source. Login to the `corddev` vm and `cd /cord/build`
+In addition, you should add the synchronizer for this service to the `docker_images.yml` (location: $CORD/build/docker_images.yml):
 
 ```
-$ ./gradlew -PdeployConfig=config/mcord_in_a_box.yml PIprepPlatform
-$ ./gradlew -PdeployConfig=config/mcord_in_a_box.yml :platform-install:buildImages
-$ ./gradlew -PdeployConfig=config/mcord_in_a_box.yml :platform-install:publish
-$ ./gradlew -PdeployConfig=config/mcord_in_a_box.yml :orchestration:xos:publish
+  - name: xosproject/vhss-synchronizer
+    repo: vHSS
+    path: "xos/synchronizer"
+    dockerfile: "Dockerfile.synchronizer"
 ```
 
-Now the new XOS images should be published to the registry on `prod`. To bring them up, login to the `prod` VM and define these aliases:
+To build the synchronizer as a container, following codes should be written in scenario files, e.g., cord, local, mock, and so on:
 
 ```
-$ CORD_PROFILE=$( cat /opt/cord_profile/profile_name )
-$ alias xos-pull="docker-compose -p $CORD_PROFILE -f /opt/cord_profile/docker-compose.yml pull"
-$ alias xos-up="docker-compose -p $CORD_PROFILE -f /opt/cord_profile/docker-compose.yml up -d --remove-orphans"
-$ alias xos-teardown="pushd /opt/cord/build/platform-install; ansible-playbook -i inventory/head-localhost --extra-vars @/opt/cord/build/genconfig/config.yml teardown-playbook.yml; popd"
-$ alias compute-node-refresh="pushd /opt/cord/build/platform-install; ansible-playbook -i /etc/maas/ansible/pod-inventory --extra-vars=@/opt/cord/build/genconfig/config.yml compute-node-refresh-playbook.yml; popd"
+docker_image_whitelist:
+  - "xosproject/vhss-synchronizer"
 ```
 
-To pull new images from the database and launch the containers, while retaining the existing XOS database, run:
+For this, the exact location for each scenario is as follows:
+ - for CORD scenario: $CROD/build/scenarios/cord/config.yml
+ - for Local scenario: $CROD/build/scenarios/local/config.yml
+ - for Mock scenario: $CROD/build/scenarios/mock/config.yml
+ - for Opencloud scenario: $CROD/build/scenarios/opencloud/config.yml
+ - for Single scenario: $CROD/build/scenarios/single/config.yml
+
+Once you have added the service, you will need to rebuild and redeploy the XOS containers from source.
 
 ```
-$ xos-pull; xos-up
-```
-
-Alternatively, to remove the XOS database and reinitialize XOS from scratch, run:
-
-```
-$ xos-teardown; xos-pull; xos-launch; compute-node-refresh
+$ cd $CORD/build
+$ make xos-teardown
+$ make clean-openstack
+$ make clean-profile
+$ make -j4 build
+$ make compute-node-refresh
 ```

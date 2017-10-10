@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from xosresource import XOSResource
-from core.models import Tenant
+from core.models import ServiceInstance
 from services.vhss.models import VHSSVendor
 
 class XOSVHSSVendor(XOSResource):
@@ -27,7 +27,7 @@ class XOSVHSSVendor(XOSResource):
 
         tenant_name = self.get_requirement("tosca.relationships.VendorOfTenant", throw_exception=throw_exception)
         if tenant_name:
-            args["provider_tenant"] = self.get_xos_object(Tenant, throw_exception=throw_exception, name=tenant_name)
+            args["provider_tenant"] = self.get_xos_object(ServiceInstance, throw_exception=throw_exception, name=tenant_name)
 
         return args
 
