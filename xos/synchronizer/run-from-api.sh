@@ -12,5 +12,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-export XOS_DIR=/opt/xos
-python vhss-synchronizer.py  -C $XOS_DIR/synchronizers/vhss/vhss_from_api_config
+
+python vhss-synchronizer.py
