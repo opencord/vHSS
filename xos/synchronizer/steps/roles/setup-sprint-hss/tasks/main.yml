@@ -13,17 +13,26 @@
 # limitations under the License.
 
 ---
-# vhsstenant_playbook
 
-- hosts: {{ instance_name }}
-  gather_facts: False
-  connection: ssh
-  user: ubuntu
-  become: yes
-  vars:
-    - source_path: /home/c3po/hss
-    - identity: "hss.openair4G.eur"
-    - realm: "openair4G.eur"
-    - db_ip: {{ db_ip }}
-  roles:
-    - setup-sprint-hss
+- name: Copy templates
+  template:
+    src: "templates/{{ item }}.j2"
+    dest: "{{ source_path }}/conf/{{ item }}"
+  with_items:
+    - hss.conf
+    - hss.json
+
+- name: Run make_certs.sh command
+  shell: "bin/make_certs.sh hss {{ realm }}"
+  args:
+    chdir: "{{ source_path }}"
+
+- name: Load key
+  shell: "bin/hss -j conf/hss.json --onlyloadkey"
+  args:
+    chdir: "{{ source_path }}"
+
+- name: Run HSS
+  shell: "bin/hss -j conf/hss.json"
+  args:
+    chdir: "{{ source_path }}"

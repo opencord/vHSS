@@ -1,0 +1,33 @@
+{#
+Copyright 2017-present Open Networking Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+#}
+{"common": {
+    "fdcfg": "conf/hss.conf",
+    "originhost": "{{ identity }}",
+    "originrealm": "{{ realm }}"
+ },
+ "hss": {
+    "gtwhost": "*",
+    "gtwport" : 9080,
+    "restport" : 9081,
+    "casssrv": "{{ db_ip }}",
+    "cassusr": "root",
+    "casspwd": "root",
+    "cassdb" : "vhss",
+    "randv"  : true,
+    "optkey" : "63bfa50ee6523365ff14c1f45f88737d",
+    "reloadkey"  : false
+ }
+}
