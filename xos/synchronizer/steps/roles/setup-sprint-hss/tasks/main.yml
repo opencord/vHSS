@@ -32,7 +32,11 @@
   args:
     chdir: "{{ source_path }}"
 
+- name: Kill running HSS
+  shell: "killall -w hss"
+  ignore_errors: yes
+
 - name: Run HSS
-  shell: "bin/hss -j conf/hss.json"
+  shell: "nohup bin/hss -j conf/hss.json > /tmp/hss.output &"
   args:
     chdir: "{{ source_path }}"
