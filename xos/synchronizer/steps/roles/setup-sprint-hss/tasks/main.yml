@@ -27,11 +27,6 @@
   args:
     chdir: "{{ source_path }}"
 
-- name: Load key
-  shell: "bin/hss -j conf/hss.json --onlyloadkey"
-  args:
-    chdir: "{{ source_path }}"
-
 - name: Kill running HSS
   shell: "killall -w hss"
   ignore_errors: yes
