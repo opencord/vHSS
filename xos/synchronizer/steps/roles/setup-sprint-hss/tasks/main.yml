@@ -23,9 +23,9 @@
     - hss.json
 
 - name: Run make_certs.sh command
-  shell: "bin/make_certs.sh hss {{ realm }}"
+  shell: "{{ source_path }}/bin/make_certs.sh hss {{ realm }}"
   args:
-    chdir: "{{ source_path }}"
+    chdir: "{{ source_path }}/conf"
 
 - name: Kill running HSS
   shell: "killall -w hss"
