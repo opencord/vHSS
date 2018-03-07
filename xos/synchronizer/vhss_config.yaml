@@ -13,11 +13,16 @@
 # limitations under the License.
 
 
-name: vhss-synchronizer
+name: vhss
 accessor:
   username: xosadmin@opencord.org
   password: "@/opt/xos/services/vhss/credentials/xosadmin@opencord.org"
+required_models:
+  - VHSSService
+  - VHSSVendor
+  - VHSSTenant
 dependency_graph: "/opt/xos/synchronizers/vhss/model-deps"
 steps_dir: "/opt/xos/synchronizers/vhss/steps"
 sys_dir: "/opt/xos/synchronizers/vhss/sys"
+models_dir: "/opt/xos/synchronizers/vhss/models"
 model_policies_dir: "/opt/xos/synchronizers/vhss/model_policies"
